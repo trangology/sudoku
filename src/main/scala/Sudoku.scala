@@ -5,7 +5,6 @@ import sudoku.game._
  * @author https://github.com/trangology
  */
 
-
 object Sudoku {
   def main(args: Array[String]): Unit = {
     val puzzle = new Puzzle()

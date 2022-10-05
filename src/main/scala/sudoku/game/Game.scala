@@ -1,6 +1,6 @@
 package sudoku.game
 
-import sudoku.utils._
+import sudoku.utils.*
 
 /**
  * @param player the type of player, either Human or Solver.
@@ -63,7 +63,7 @@ case class Game(player: Player, puzzle: Puzzle, state: State) {
         state match {
           case UNSOLVABLE => println("Sorry, the puzzle now is unsolvable")
           case SOLVED =>
-            println("Congrats, you have just solved your own puzzle!\n")
+            println("Congrats, you have just solved the puzzle!\n")
             println(renderSudoku(this.puzzle.grid))
         }
       case Solver =>

@@ -1,6 +1,16 @@
 package sudoku.utils
 
 class Helper {
+  def renderSudoku(grid: List[List[Int]]): String = {
+    val ROW_INDICES = "  | 1 2 3 | 4 5 6 | 7 8 9 |"
+    val ROW_DECORATOR = "--+-------+-------+-------+"
+    val COL_DECORATOR = " | "
+
+    val rows = (0 to 8).map(row => row.toString + drawRow(grid, row, COL_DECORATOR)).toList
+    val slides = (0 to 8).by(3).map(i => rows(i) + rows(i + 1) + rows(i + 2) + ROW_DECORATOR).mkString("\n")
+    s"\n${ROW_INDICES}\n${ROW_DECORATOR}\n$slides\n"
+  }
+
   private def isValid(region: List[Int]): Boolean = {
     val nonZeroRegion = region.filterNot(_ == 0)
     if (nonZeroRegion.distinct.length != nonZeroRegion.length) false
@@ -34,13 +44,4 @@ class Helper {
     validateRows(rawSudoku) && validateColumns(rawSudoku) && validateBlocks(rawSudoku)
   }
 
-  def renderSudoku(grid: List[List[Int]]): String = {
-    val ROW_INDICES = "  | 1 2 3 | 4 5 6 | 7 8 9 |"
-    val ROW_DECORATOR = "--+-------+-------+-------+"
-    val COL_DECORATOR = " | "
-
-    val rows = (0 to 8).map(row => row.toString + drawRow(grid, row, COL_DECORATOR)).toList
-    val slides = (0 to 8).by(3).map(i => rows(i) + rows(i + 1) + rows(i + 2) + ROW_DECORATOR).mkString("\n")
-    s"\n${ROW_INDICES}\n${ROW_DECORATOR}\n$slides\n"
-  }
 }
