@@ -1,5 +1,5 @@
-import sudoku.game._
-
+import sudoku.game.*
+import sudoku.utils.*
 
 /**
  * @author https://github.com/trangology

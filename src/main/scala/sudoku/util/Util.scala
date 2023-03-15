@@ -1,12 +1,13 @@
-package sudoku.utils
+package sudoku.util
 
-class Helper {
+class Util {
+
   def renderSudoku(grid: List[List[Int]]): String = {
     val ROW_INDICES = "  | 1 2 3 | 4 5 6 | 7 8 9 |"
     val ROW_DECORATOR = "--+-------+-------+-------+"
     val COL_DECORATOR = " | "
 
-    val rows = (0 to 8).map(row => row.toString + drawRow(grid, row, COL_DECORATOR)).toList
+    val rows = (1 to 9).map(row => row.toString + drawRow(grid, row, COL_DECORATOR)).toList
     val slides = (0 to 8).by(3).map(i => rows(i) + rows(i + 1) + rows(i + 2) + ROW_DECORATOR).mkString("\n")
     s"\n${ROW_INDICES}\n${ROW_DECORATOR}\n$slides\n"
   }
@@ -33,15 +34,15 @@ class Helper {
     })
   }
 
-  private def drawRow(grid: List[List[Int]], row: Int, separator: String): String = {
+  def drawRow(grid: List[List[Int]], row: Int, separator: String): String = {
     val newRow = grid(row).sliding(3, 3).toList
     val stringRow = for (slide <- newRow) yield (slide.mkString(" ") + separator)
     val result = separator + stringRow(0) + stringRow(1) + stringRow(2)
     result.replace("0", " ").stripTrailing() + "\n"
   }
 
-  def isValidSudoku(rawSudoku: List[List[Int]]): Boolean = {
-    validateRows(rawSudoku) && validateColumns(rawSudoku) && validateBlocks(rawSudoku)
+  def isValidPuzzle(puzzle: List[List[Int]]): Boolean = {
+    validateRows(puzzle) && validateColumns(puzzle) && validateBlocks(puzzle)
   }
 
 }

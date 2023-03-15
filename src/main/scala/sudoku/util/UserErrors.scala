@@ -1,11 +1,11 @@
-package sudoku.utils
+package sudoku.util
 
-sealed trait UserErrors {
+sealed trait UserError {
   protected def errorMessage: String
 }
 
 
-case class IllegalDigit(digit: Int) extends UserErrors {
+case class IllegalDigit(digit: Int) extends UserError {
   override val errorMessage: String =
     """ERROR: Your digit is %d.
       |But legal digit must be any integer started from 1 and 9.
@@ -13,7 +13,7 @@ case class IllegalDigit(digit: Int) extends UserErrors {
 }
 
 
-case class InvalidDigit(userDigit: Int, validDigits: List[Int]) extends UserErrors {
+case class InvalidDigit(userDigit: Int, validDigits: List[Int]) extends UserError {
   override val errorMessage: String =
     """ERROR: %d existed.
       |Want hint? Here is the list of valid digits:
@@ -22,7 +22,7 @@ case class InvalidDigit(userDigit: Int, validDigits: List[Int]) extends UserErro
 }
 
 
-case class NotUnsolvedCell(row: Int, col: Int, unsolvedCells: List[(Int, Int)]) extends UserErrors {
+case class NotUnsolvedCell(row: Int, col: Int, unsolvedCells: List[(Int, Int)]) extends UserError {
   override val errorMessage: String =
     """ERROR: (%d, %d) is not empty cell.
       |Want hint? Below is the list of valid cells:
@@ -31,7 +31,7 @@ case class NotUnsolvedCell(row: Int, col: Int, unsolvedCells: List[(Int, Int)]) 
 }
 
 
-case class IllegalRow(row: Int, validRows: List[Int]) extends UserErrors {
+case class IllegalRow(row: Int, validRows: List[Int]) extends UserError {
   override val errorMessage: String = {
     """ERROR: Row %d is out of grid.
       |Want hint? Below is the list of valid rows:
@@ -41,7 +41,7 @@ case class IllegalRow(row: Int, validRows: List[Int]) extends UserErrors {
 }
 
 
-case class IllegalCol(row: Int, col: Int, validColumns: List[Int]) extends UserErrors {
+case class IllegalCol(row: Int, col: Int, validColumns: List[Int]) extends UserError {
   override val errorMessage: String =
     """Column %d is out of grid.
       |Want hint? Below is the list of valid columns with row %d:
@@ -50,7 +50,7 @@ case class IllegalCol(row: Int, col: Int, validColumns: List[Int]) extends UserE
 }
 
 
-case class IllegalCell(row: Int, col: Int, unsolvedCells: List[(Int, Int)]) extends UserErrors {
+case class IllegalCell(row: Int, col: Int, unsolvedCells: List[(Int, Int)]) extends UserError {
   override val errorMessage: String =
     """ERROR: Cell (%d, %d) is out of grid.
       |Please choose another cell from this list:
@@ -59,7 +59,7 @@ case class IllegalCell(row: Int, col: Int, unsolvedCells: List[(Int, Int)]) exte
 }
 
 
-case class UnknownCharacter() extends UserErrors {
+case class UnknownCharacter() extends UserError {
   override val errorMessage: String =
     """ERROR: Your input contains special character/characters.
       |Values of columns must be integers started from 0 to 8.

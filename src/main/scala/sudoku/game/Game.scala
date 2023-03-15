@@ -1,6 +1,6 @@
 package sudoku.game
 
-import sudoku.utils.*
+import sudoku.util.*
 
 /**
  * @param player the type of player, either Human or Solver.
@@ -27,7 +27,7 @@ case class Game(player: Player, puzzle: Puzzle, state: State) {
     }
   }
 
-  private def startGameForHuman(puzzle: Puzzle): Unit = {
+  def startGameForHuman(puzzle: Puzzle): Unit = {
     println("Rendering the puzzle...")
     Thread.sleep(1500)
     println(renderSudoku(this.puzzle.grid))
@@ -49,7 +49,7 @@ case class Game(player: Player, puzzle: Puzzle, state: State) {
     }
   }
 
-  private def startGameForSolver(puzzle: Puzzle): Unit = {
+  def startGameForSolver(puzzle: Puzzle): Unit = {
     val unsolvedCells = puzzle.getUnsolvedCells.toVector
     Solver.solve(puzzle, unsolvedCells)
   }
@@ -68,9 +68,9 @@ case class Game(player: Player, puzzle: Puzzle, state: State) {
         }
       case Solver =>
         state match {
-          case UNSOLVABLE => println("Hm, looks like my computation was not implemented properly.")
+          case UNSOLVABLE => println("Hmm, looks like my computation was not implemented properly.")
           case SOLVED =>
-            println("Below is the solution to your puzzle, solved by my computation.")
+            println("Below is the solution to the given puzzle, solved by my computation.")
             println(renderSudoku(this.puzzle.grid))
         }
     }
